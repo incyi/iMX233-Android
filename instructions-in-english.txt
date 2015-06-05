@@ -16,7 +16,7 @@ Contents
 2.4 References
 
 1. 
-It has made the implementation of the Android system on Freescale i.MX233 processor performing tests on the development board Chumby Hacker Board. This is to extend the functionality of the card to run Java applications in console mode. To perform this implementation, it was necessary to adapt the Linux kernel functionality that will support Android system and it was also necessary to build the root filesystem of that for a similar architecture in which you are working ARM architecture.
+It has made the implementation of the Android system on Freescale i.MX233 processor performing tests on the development board Chumby Hacker Board(https://www.adafruit.com/products/278). This is to extend the functionality of the card to run Java applications in console mode. To perform this implementation, it was necessary to adapt the Linux kernel functionality that will support Android system and it was also necessary to build the root filesystem of that for a similar architecture in which you are working ARM architecture.
 
 1.1
 To make these instructions is recommended before running Linux has been loaded and compiled the instructions on this page.
@@ -24,7 +24,7 @@ To make these instructions is recommended before running Linux has been loaded a
 Here are the steps taken to compile this operating system for the processor shown:
 
 1.2
-Initially it is necessary to use a Linux kernel with patches needed to run the i.MX233 processor, you can use the kernel from the TuxRail card. The steps for microSD drivers and Linux kernel adaptation card found on this page.
+Initially it is necessary to use a Linux kernel with patches needed to run the i.MX233 processor, you can use the kernel from the TuxRail(http://busware.de/tiki-index.php?page=TuxRail) card. The steps for microSD drivers and Linux kernel adaptation card found on this link. (Link is down)
 
 Download and install the following packages:
 
