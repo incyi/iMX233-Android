@@ -158,6 +158,6 @@ service console /system/bin/sh
 service console /system/bin/busybox sh
 
 2.4
-I.MX Android R7 User guide - Toolchain and android source installation.
+I.MX Android R7 User guide - Toolchain and android source installation. http://www.freescale.com/files/32bit/doc/support_info/i_MX_Android_R7_Release_Note.html
 Blog - ChinaUnix - Android porting to i.MX233 (Chinese): http://blog.chinaunix.net/space.php?uid=20146040&do=blog&id=76261
 Busybox Android - Installation of busybox: http://www.busybox.net/FAQ.html
