@@ -64,3 +64,98 @@ git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-2.6.28.y.gi
 Download the source code of U-BOOT
 cd myandroid/bootable/bootloader
 git clone git://git.denx.de/u-boot.git uboot-imx
+
+
+1.5
+cd ~/myandroid
+. /opt/imx-android-r7/code/R7/and_patch.sh
+help
+
+c_patch /opt/imx-android-r7/code/R7 imx_r7
+
+Success: Now you can build android code for FSL i.MX platform
+
+
+1.6
+
+cd ~/myandroid/bootable/bootloader/uboot-imx
+echo $ARCH && echo $CROSS_COMPILE
+make mx51_bbg_android_config
+make
+
+1.7
+cd ~/myandroid
+make PRODUCT-imx51_BBG-eng | tee build_imx51_BBG_android.log
+
+1.8
+cd camino-a-kernel-tuxrail/
+
+alias crossmake='make ARCH=arm CROSS_COMPILE=/home/<usuario>/myandroid/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-'
+crossmake menuconfig
+
+ │ │   [ ] Accessibility support  --->                                   │ │  
+ │ │    < > InfiniBand support (NEW)  --->                               │ │  
+ │ │    [ ] EDAC (Error Detection And Correction) reporting (NEW)  --->  │ │  
+ │ │    <*> Real Time Clock  --->                                        │ │  
+ │ │    [ ] DMA Engine support  --->                                     │ │  
+ │ │    [ ] Auxiliary Display support  --->                              │ │  
+ │ │    < > Userspace I/O drivers  --->                                  │ │  
+ │ │        TI VLYNQ  --->                                               │ │  
+ │ │    [*] Staging drivers  --->                                        │ │  
+ │ │    [*] X86 Platform Specific Device Drivers (NEW)  --->   
+ 
+ │ │    [*]   Android Binder IPC Driver                                  │ │  
+ │ │    <*>   Android log driver                                         │ │  
+ │ │    [*]   Android RAM buffer console                                 │ │  
+ │ │    [*]     Enable verbose console messages on Android RAM console  │ │  
+ │ │    [*]     Start Android RAM console early                          │ │  
+ │ │    (0)       Android RAM console virtual address (NEW)              │ │  
+ │ │    (0)       Android RAM console buffer size (NEW)                  │ │  
+ │ │    [*]   Timed output class driver (NEW)                            │ │  
+ │ │    <*>     Android timed gpio driver                                │ │  
+ │ │    [*]   Android Low Memory Killer                                  │ │  
+ 
+ crossmake -j3
+
+1.9
+gedit ~/myandroid/out/target/product/generic/root/init.rc
+
+mount yaffs2 mtd @ system / system
+mount yaffs2 mtd @ system / system ro remount
+
+mount yaffs2 mtd @ userdata / data nosuid nodev
+
+mount yaffs2 mtd @ cache / cache nosuid nodev
+
+
+cd camino-al-kernel
+crossmake -j3
+
+
+
+
+2
+2.1
+console=ttyAM0,115200 init=/init root=/dev/mmcblk0p2 ro rootfstype=ext2 rootdelay=1 ssp1=mmc line=1 mem=64M androidboot.console=ttyAM0
+
+
+2.2
+cd myandroid/out/target/product/generic
+
+sudo cp -r system data root/
+cd root
+sudo cp -avr * /media/etiqueta-particion-sd
+
+2.3
+cp Busybox /media/etiqueta-sd/system/bin
+
+gedit /media/etiqueta-particion-sd/init.rc
+
+service console /system/bin/sh
+
+service console /system/bin/busybox sh
+
+2.4
+I.MX Android R7 User guide - Toolchain and android source installation.
+Blog - ChinaUnix - Android porting to i.MX233 (Chinese): http://blog.chinaunix.net/space.php?uid=20146040&do=blog&id=76261
+Busybox Android - Installation of busybox: http://www.busybox.net/FAQ.html
