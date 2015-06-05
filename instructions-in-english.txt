@@ -15,3 +15,52 @@ Contents
 2.3 Busybox Settings
 2.4 References
 
+1. 
+It has made the implementation of the Android system on Freescale i.MX233 processor performing tests on the development board Chumby Hacker Board. This is to extend the functionality of the card to run Java applications in console mode. To perform this implementation, it was necessary to adapt the Linux kernel functionality that will support Android system and it was also necessary to build the root filesystem of that for a similar architecture in which you are working ARM architecture.
+
+1.1
+To make these instructions is recommended before running Linux has been loaded and compiled the instructions on this page.
+
+Here are the steps taken to compile this operating system for the processor shown:
+
+1.2
+Initially it is necessary to use a Linux kernel with patches needed to run the i.MX233 processor, you can use the kernel from the TuxRail card. The steps for microSD drivers and Linux kernel adaptation card found on this page.
+
+Download and install the following packages:
+
+sudo apt-get install nfs-kernel-server patch g++ rpm zlib1g-dev m4 bison libncurses5-dev gettext build-essential tcl intltool libxml2-dev minicom tftpd  xinetd curl
+
+1.3
+cd /opt
+sudo tar xzvf imx-android-r7.tar.gz
+cd imx-android-r7/code
+sudo tar xzvf R7.tar.gz
+
+cd /opt/imx-android-r7/tool
+sudo tar xzvf gcc-4.1.2-glibc-2.5-nptl-3.tar.gz -C /opt
+
+gedit ~/.bashrc
+
+Add these lines to the end:
+export ARCH=arm
+export CROSS_COMPILE=/opt/gcc-4.1.2-glibc-2.5-nptl-3/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-
+
+1.4
+To obtain the source code we follow the following steps (The last step may take several hours downloading Make sure you have a good Internet connection.)
+
+cd ~
+mkdir myandroid
+cd myandroid
+curl http://android.git.kernel.org/repo > ./repo   
+chmod a+x ./repo
+./repo init -u git://android.git.kernel.org/platform/manifest.git -b eclair
+cp /opt/imx-android-r7/code/R7/default.xml .repo/manifests/default.xml 
+./repo sync
+
+Also, get a clean kernel.org source code:
+cd myandroid
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-2.6.28.y.git kernel_imx
+
+Download the source code of U-BOOT
+cd myandroid/bootable/bootloader
+git clone git://git.denx.de/u-boot.git uboot-imx
