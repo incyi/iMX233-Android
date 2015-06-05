@@ -1,0 +1,17 @@
+Contents
+1 Implementation of Android for the i.MX233 processor
+1.1 Important
+1.2 Prerequisites for Implementation IMX-android 
+1.3 Unpacking and useful tools
+1.4 Getting Source Code
+1.5 Apply Patches
+1.6 Construction of Uboot
+1.7 Android Image
+1.8 Android Kernel Configuration and generation of Zimage
+1.9 Android Implementation rootfs
+2 Copy to SD
+2.1 Load Zimage
+2.2 Charging Android rootfs
+2.3 Busybox Settings
+2.4 References
+
